@@ -1,6 +1,26 @@
 # Semantic Segmentation
+Udaicty self-driving car engineer nanodegree.
+The udacity project solution. 
 ### Introduction
 In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
+We use the FCN based on the VGG-16 image classifier architecture for semantic segmentation with some data from kitti data set(both with trainning and testing).
+## Architecture
+### Main ideas
+The layers 3, 4 and 7 of VGG16 are utilized in creating skip layers, and we can find the reasons in [this paper](https://arxiv.org/pdf/1605.06211.pdf).
+![FCN](./doc/FCN.png)
+
+We get the VGG-16 model which is [pre-trainned](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/vgg.zip).
+And use the AdamOptimizer, the loss function is cross_entropy loss. 
+The hyperparameters are as below:
+hyperparameters | values
+--------------- | ---------------------
+learning_rate   |  0.00001
+keep_prob       |  0.5
+epochs          |  48
+batch_size      |  5
+
+### Result
+There are some result for the Semantic Segmentation in test images:
 
 ### Setup
 ##### GPU
@@ -30,13 +50,6 @@ Run the following command to run the project:
 python main.py
 ```
 **Note:** If running this in Jupyter Notebook system messages, such as those regarding test status, may appear in the terminal rather than the notebook.
-
-#### Example Outputs
-Here are examples of a sufficient vs. insufficient output from a trained network:
-
-Sufficient Result          |  Insufficient Result
-:-------------------------:|:-------------------------:
-![Sufficient](./examples/sufficient_result.png)  |  ![Insufficient](./examples/insufficient_result.png)
 
 ### Submission
 1. Ensure you've passed all the unit tests.
