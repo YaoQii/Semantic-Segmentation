@@ -170,7 +170,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
                                           learning_rate:LEARN_RATE,
                                           keep_prob:0.5}
                                )
-            all_loss.append(':4f'.format(loss))
+            all_loss.append('{:4f}'.format(loss))
         print(all_loss)
 
     print("End Training...")
@@ -212,7 +212,7 @@ def run():
         logits, train_op, cross_entropy_loss = optimize(layer_output, correct_label, learning_rate, num_classes)
 
         # TODO: Train NN using the train_nn function
-        epochs = 48  # 6 12 24
+        epochs = 48  #
         batch_size = 5
         train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_loss, input_image,
                  correct_label, keep_prob, learning_rate)
