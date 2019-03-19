@@ -62,47 +62,45 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     kernel_regularizer_val = tf.contrib.layers.l2_regularizer(1e-3)
     kernel_initializer_val = tf.random_normal_initializer(stddev=0.01)
     # 1x1 convolution of vgg layer 7
-    conv_1x1_7 = tf.layers.conv2d(vgg_layer7_out, num_classes,
-                                  1,#keernel size
-                                  padding= 'same',
-                                  kernel_initializer= kernel_initializer_val,
-                                  kernel_regularizer= kernel_regularizer_val)
+    conv_1x1_7 = tf.layers.conv2d(vgg_layer7_out, num_classes,1,padding='same',
+                                  kernel_initializer=kernel_initializer_val,
+                                  kernel_regularizer=kernel_regularizer_val)
     #test the printf
     tf.Print(conv_1x1_7, [tf.shape(conv_1x1_7)[1:3]])
     # upsample deconvolution x 2.
     upsample_2x_first = tf.layers.conv2d_transpose(conv_1x1_7, num_classes, 4,
-                                             strides= (2, 2),
-                                             padding= 'same',
-                                             kernel_initializer= kernel_initializer_val,
-                                             kernel_regularizer= kernel_regularizer_val)
+                                                   strides=(2, 2),
+                                                   padding='same',
+                                                   kernel_initializer=kernel_initializer_val,
+                                                   kernel_regularizer=kernel_regularizer_val)
 
     # 1x1 convolution of vgg layer 4
     conv_1x1_4 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1,
-                                   padding= 'same',
-                                   kernel_initializer= kernel_initializer_val,
-                                   kernel_regularizer= kernel_regularizer_val)
+                                  padding='same',
+                                  kernel_initializer=kernel_initializer_val,
+                                  kernel_regularizer=kernel_regularizer_val)
 
     # first skip connection (element-wise addition)
     layer4_out = tf.add(upsample_2x_first, conv_1x1_4)
     # upsample  deconvolution x 2.
     upsample_2x_second = tf.layers.conv2d_transpose(layer4_out, num_classes, 4,
-                                             strides= (2, 2),
-                                             padding= 'same',
-                                             kernel_initializer= kernel_initializer_val,
-                                             kernel_regularizer= kernel_regularizer_val)
+                                                    strides=(2, 2),
+                                                    padding='same',
+                                                    kernel_initializer=kernel_initializer_val,
+                                                    kernel_regularizer=kernel_regularizer_val)
     # 1x1 convolution of vgg layer 3
     conv_1x1_3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1,
-                                   padding= 'same',
-                                   kernel_initializer= kernel_initializer_val,
-                                   kernel_regularizer= kernel_regularizer_val)
+                                  padding='same',
+                                  kernel_initializer=kernel_initializer_val,
+                                  kernel_regularizer=kernel_regularizer_val)
     # second skip connection
     layer3_out = tf.add(upsample_2x_second, conv_1x1_3)
     # upsample　deconvolution x ８
     upsample_8x = tf.layers.conv2d_transpose(layer3_out, num_classes, 16,
-                                               strides= (8, 8),
-                                               padding= 'same',
-                                               kernel_initializer= kernel_initializer_val,
-                                               kernel_regularizer= kernel_regularizer_val)
+                                             strides=(8, 8),
+                                             padding='same',
+                                             kernel_initializer=kernel_initializer_val,
+                                             kernel_regularizer=kernel_regularizer_val)
 
 
     # conv_1x1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, padding='same',
