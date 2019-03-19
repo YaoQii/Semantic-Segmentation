@@ -13,7 +13,10 @@ Make sure you have the following is installed:
  - [SciPy](https://www.scipy.org/)
 
 You may also need [Python Image Library (PIL)](https://pillow.readthedocs.io/) for SciPy's `imresize` function.
-
+I install it in this way: 
+```
+pip3 install -r requirements.txt
+```
 ##### Dataset
 Download the [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php) from [here](http://www.cvlibs.net/download.php?file=data_road.zip).  Extract the dataset in the `data` folder.  This will create the folder `data_road` with all the training a test images.
 
